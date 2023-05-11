@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Vue.js演習問題</title>
+        <link rel="stylesheet" href="style.css" >
+        <script src=
+        "https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js">
+        </script>
+    </head>
+
+    <body>
+        <h2>属性をバインドする例</h2>
+        <div id="app">
+        <table border="1">
+            <caption>代表的検索サイト</caption>
+            <tr><th>yahoo</th>
+                <th>google</th>
+                <th>microsoft</th></tr>
+            <td>
+                <a v-bind:href="myurl1">
+                    <img v-bind:src="logo1">
+                </a>
+            </td>
+            <td>
+                <a v-bind:href="myurl2">
+                    <img v-bind:src="logo2">
+                </a>
+            </td>
+            <td>
+                <a v-bind:href="myurl3">
+                    <img v-bind:src="logo3">
+                </a>
+            </td>
+        </table>
+        </div>
+
+        <script>
+        new Vue({
+            el: '#app',
+            data: {
+                //yahoo
+                myurl1: "https://www.yahoo.co.jp/",
+                logo1: "Yahoo_logo.png",
+                //google
+                myurl2: "https://www.google.com",
+                logo2: "Google_logo.png",
+                //microsoft
+                myurl3: "https://www.msn.com/ja-jp/",
+                logo3: "MS_logo.png"
+            }
+        })
+        </script>
+    </body>
+</html>
