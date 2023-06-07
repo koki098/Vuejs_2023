@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chokokutai&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/bougu.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>防具追加</title>
+</head>
+
+<body>
+  <div id="app">
+  <h1>
+    <a href="home.html">
+      <img src="img/logomh.jpg">
+    </a>
+  </h1>
+    <h2>防具追加</h2>
+    <input type="file" @change="onFileChange">
+    <select v-model="newText1">
+      <option>男性</option>
+      <option>女性</option>
+    </select>
+    <!-- 採点箇所１：インプット １０点 -->
+    <input type="text" v-model="newText2" placeholder="シリーズ名">
+    <select v-model="newText3">
+      <option disabled value="部位">部位</option>
+      <option>一式</option>
+      <option>頭</option>
+      <option>胴</option>
+      <option>腕</option>
+      <option>腰</option>
+      <option>足</option>
+    </select>
+    <input type="number" v-model="newText4" placeholder="防御力">
+    <button @click="addItem">追加</button>
+    <button @click="deleteAllItems">すべて削除</button>
+    <div class="list">
+      <ul>
+        <!-- 採点箇所３：繰り返しor条件分岐が実装されている １０点 -->
+        <li v-for="armor in armors" :key="armor.id">
+          <img class="armimg" :src="armor.image" alt="Item Image">
+          <!-- 採点箇所１：アウトプット １０点 -->
+          <p>{{ armor.text1 }}：{{ armor.text2 }}<br>
+            部位：{{ armor.text3 }}<br>
+            防御力：{{ armor.text4 }}
+          </p>
+          <button @click="deleteItem(armor.id)">削除</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        armors: [],
+        newText1: '男性',
+        newText2: '',
+        newText3: '部位',
+        newText4: '',
+        selectedFile: null
+      },
+      mounted() {
+        this.loadItemsFromLocalStorage();
+      },
+      methods: {
+        onFileChange(event) {
+          this.selectedFile = event.target.files[0];
+        },
+        addItem() {
+          if (this.selectedFile && this.newText1 && this.newText2 && this.newText3 && this.newText4) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+              const newItem = {
+                id: Date.now(),
+                image: event.target.result,
+                text1: this.newText1,
+                text2: this.newText2,
+                text3: this.newText3,
+                text4: this.newText4,
+              };
+              this.armors.push(newItem);
+              this.saveItemsToLocalStorage();
+              this.resetForm();
+            };
+            reader.readAsDataURL(this.selectedFile);
+          }
+        },
+        deleteItem(itemId) {
+          this.armors = this.armors.filter((armor) => armor.id !== itemId);
+          this.saveItemsToLocalStorage();
+        },
+        deleteAllItems() {
+          this.armors = [];
+          this.saveItemsToLocalStorage();
+        },
+        saveItemsToLocalStorage() {
+          localStorage.setItem('armors', JSON.stringify(this.armors));
+        },
+        loadItemsFromLocalStorage() {
+          const savedItems = localStorage.getItem('armors');
+          if (savedItems) {
+            this.armors = JSON.parse(savedItems);
+          }
+        },
+        resetForm() {
+          this.selectedFile = null;
+          this.newText1 = '男性';
+          this.newText2 = '';
+          this.newText3 = '部位';
+          this.newText4 = '';
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

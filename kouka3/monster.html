@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Aoboshi+One&family=Chokokutai&display=swap" rel="stylesheet">	<link rel="stylesheet" href="css/base.css">
+	<link rel="stylesheet" href="css/monster.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>モンスター追加</title>
+</head>
+
+<body>
+  <div id="app">
+    <h1>
+      <a href="home.html">
+        <img src="img/logomh.jpg">
+      </a>
+    </h1>
+    <h2>モンスター追加</h2>
+    <input type="file" @change="onFileChange">
+    <input type="text" v-model="newText1" placeholder="種族名">
+    <input type="text" v-model="newText2" placeholder="モンスター名">
+    <input type="text" v-model="newText3" placeholder="弱点部位">
+    <select v-model="newText4">
+      <option disabled value="主属性">主属性</option>
+      <option>火</option>
+      <option>水</option>
+      <option>氷</option>
+      <option>爆破</option>
+      <option>雷</option>
+      <option>龍</option>
+      <option>毒</option>
+      <option>麻痺</option>
+      <option>睡眠</option>
+    </select>
+    <textarea v-model="newText5" maxlength="70" wrap="hard" cols="13"rows="1"></textarea>
+    <button @click="addItem">追加</button>
+    <button @click="deleteAllItems">すべて削除</button>
+    <div class="list">
+      <ul>
+        <li v-for="monster in monsters" :key="monster.id">
+          <img :src="monster.image" alt="Item Image">
+          <p>{{ monster.text1 }}：{{ monster.text2 }}<br>
+            弱点部位：{{ monster.text3 }}<br>主属性：{{monster.text4}}<br>
+            生態<br>{{ monster.text5 }}
+          </p>
+          <button @click="deleteItem(monster.id)">削除</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        monsters: [],
+        newText1: '',
+        newText2: '',
+        newText3: '',
+        newText4: '主属性',
+        newText5: '',
+        selectedFile: null
+      },
+      mounted() {
+        this.loadItemsFromLocalStorage();
+      },
+      methods: {
+        onFileChange(event) {
+          this.selectedFile = event.target.files[0];
+        },
+        addItem() {
+          if (this.selectedFile && this.newText1 && this.newText2 && this.newText3 && this.newText4 && this.newText5) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+              const newItem = {
+                id: Date.now(),
+                image: event.target.result,
+                text1: this.newText1,
+                text2: this.newText2,
+                text3: this.newText3,
+                text4: this.newText4,
+                text5: this.newText5,
+              };
+              this.monsters.push(newItem);
+              this.saveItemsToLocalStorage();
+              this.resetForm();
+            };
+            reader.readAsDataURL(this.selectedFile);
+          }
+        },
+        deleteItem(itemId) {
+          this.monsters = this.monsters.filter((monster) => monster.id !== itemId);
+          this.saveItemsToLocalStorage();
+        },
+        deleteAllItems() {
+          this.monsters = [];
+          this.saveItemsToLocalStorage();
+        },
+        saveItemsToLocalStorage() {
+          localStorage.setItem('monsters', JSON.stringify(this.monsters));
+        },
+        loadItemsFromLocalStorage() {
+          const savedItems = localStorage.getItem('monsters');
+          if (savedItems) {
+            this.monsters = JSON.parse(savedItems);
+          }
+        },
+        resetForm() {
+          this.selectedFile = null;
+          this.newText1 = '';
+          this.newText2 = '';
+          this.newText3 = '';
+          this.newText4 = '主属性';
+          this.newText5 = '';
+        }
+      }
+    });
+  </script>
+</body>
+</html>

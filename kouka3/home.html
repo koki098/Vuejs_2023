@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <title>home</title>
+    <meta name="description"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chokokutai&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/slider.css" />
+    <link rel="stylesheet" type="text/css" href="css/base.css" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+  </head>
+
+  <body>
+    <div id="app">
+      <!-- 採点箇所４：外部サイトへ遷移する機能がVue.jsで実装されている １０点 -->
+      <h1>
+        <a v-bind:href="kousikiURL">
+          <img v-bind:src="logo1">
+        </a>
+      </h1>
+    </div>
+<!-- スライド -->
+      <div class="wrapper">
+        <ul class="slider">
+          <li class="slider-item slider-item01"></li>
+          <li class="slider-item slider-item02"></li>
+          <li class="slider-item slider-item03"></li>
+          <li class="slider-item slider-item04"></li>
+          <li class="slider-item slider-item05"></li>
+          <li class="slider-item slider-item06"></li>
+          <li class="slider-item slider-item07"></li>
+          <li class="slider-item slider-item08"></li>
+        </ul>
+
+        <!-- 機能 -->
+        <nav class="kinou">
+          <ul>
+            <li>
+              <a href="bougu.html">
+                <img src="img/Icon01.jpg">ボウグ
+              </a>
+            </li>
+            <li>
+              <a href="buki.html">
+                <img src="img/Icon02.jpg">ブキ
+              </a>
+            </li>
+            <li>
+              <a href="monster.html">
+                <img src="img/Icon03.jpg">モンスター
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <!-- 機能 -->
+      </div>
+
+      <script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"
+      ></script>
+      <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+      <script src="js/slide.js"></script>
+<!-- スライド -->
+
+<!-- vue.js -->
+    <script>
+      new Vue({
+        el:'#app',
+        data:{
+          kousikiURL: "https://www.monsterhunter.com/ja/",
+          logo1:"img/logomh.jpg",
+        }
+      })
+    </script>
+
+    <div id="contens">
+
+    </div>
+  </body>
+</html>

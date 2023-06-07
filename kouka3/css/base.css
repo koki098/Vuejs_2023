@@ -1,0 +1,50 @@
+
+/*========= レイアウトのためのCSS ===============*/
+  ul{
+    margin:0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li{
+    list-style: none;
+  }
+
+  a{
+    color: #fff;
+  }
+
+  a:hover,
+  a:active{
+    text-decoration: none;
+  }
+
+  .wrapper{
+    position: relative;
+  }
+
+  .container{
+    background:#555;
+  }
+
+  .container p{
+    padding: 300px 0; 
+    text-align: center;
+    color: #fff;
+  }
+
+  body{
+    background:url(../img/bg_001.jpg) no-repeat center center;
+    background-attachment: fixed;
+    color: #fff;
+  }
+
+  button {
+    margin-left: auto;
+    box-shadow: 0px 3px 5px -1px #f76707;
+    transition: all 0.5s ease-in-out;
+  }
+
+  button:hover {
+    box-shadow: none
+  }

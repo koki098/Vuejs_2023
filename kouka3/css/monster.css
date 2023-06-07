@@ -1,0 +1,55 @@
+h1 {
+	margin-bottom: 0px;
+}
+
+h2{
+  font-size: 30px;
+  color: white;
+	margin-top: 0px;
+}
+
+div.button{
+	width: 100vh;
+}
+
+.list {
+	display: flex;
+	justify-content: center;
+}
+
+ul {
+	list-style: none;
+	padding: 0;
+}
+
+li {
+	display: flex;
+	width: 700px;
+	height: 300px;
+	margin-top: 50px;
+	margin-bottom: 50px;
+	background:url(../img/monsterbg.png);
+	background-repeat: no-repeat;
+	background-size: 700px 300px;
+	background-position: center;
+}
+
+li img {
+	width: 180px;
+	height: 150px;
+	margin-top: 75px;
+	margin-left: 85px;
+	box-shadow: 3px 5px 7px 5px;
+}
+
+li p{
+	margin-top: 50px;
+	margin-left: 25px;
+	margin-right: auto;
+	width: 300px;
+	color: black;
+}
+
+body {
+	font-family: 'Aoboshi One', serif;
+}
